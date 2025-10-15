@@ -1,23 +1,22 @@
 package main
  import ("fmt"
-    //    "bufio"
-	//    "os"
+       "bufio"
+	   "os"
 	)
          
 
  func getSecretWord(wordFileName string)string{
 
-	// wordfile,err := os.Open(wordFileName)
-	// if err !=nil{
-	// 	fmt.Println("The file could not open ",err)
-	// }
-    // // defer wordfile.Close()
-    // scanner := bufio.NewScanner(wordfile)
-	// for scanner.Scan() {
-    //     fmt.Println(scanner.Text())
-	// }
-    // randomnum := len()
-
+	wordfile,err := os.Open(wordFileName)
+	if err !=nil{
+		fmt.Println("The file could not open ",err)
+	}
+    defer wordfile.Close()
+    scanner := bufio.NewScanner(wordfile)
+	for scanner.Scan() {
+        fmt.Println(scanner.Text())
+	}
+   
 
       
 	return "elephant"

@@ -4,9 +4,17 @@ package main
 	   "os"
 	   "strings"
 	   "math/rand"
+	   "unicode"
 	)
          
-//  func Isvalid(s string)bool
+  func IsLetter(s string)bool{
+	for _,r :=range s{
+		if !unicode.IsLetter(r){
+			return false
+		}
+	}
+	return true
+  }
       
  func getSecretWord(wordFileName string)string{
    allowedwords :=[]string{}
@@ -18,7 +26,7 @@ package main
     scanner := bufio.NewScanner(wordfile)
 	for scanner.Scan() {
 		word := scanner.Text()
-		if word == strings.ToLower(word){
+		if word == strings.ToLower(word)&& IsLetter(word){
 			allowedwords= append(allowedwords,word)
 		}
         

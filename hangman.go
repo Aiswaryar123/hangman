@@ -6,7 +6,8 @@ package main
 	   "math/rand"
 	)
          
-
+//  func Isvalid(s string)bool
+      
  func getSecretWord(wordFileName string)string{
    allowedwords :=[]string{}
 	wordfile,err := os.Open(wordFileName)
@@ -28,11 +29,10 @@ package main
     randomNum := rand.Intn(len(allowedwords))
 	return allowedwords[randomNum]
 
-      
+}
 
 
- }
- func main(){
+func main(){
 	fmt.Println(getSecretWord("/usr/share/dict/words"))
 
 

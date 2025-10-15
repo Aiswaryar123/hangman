@@ -29,5 +29,13 @@ func TestSecretWordNoPunctuation(t *testing.T){
 		}
 	}
 }
+func TestSecretWordlength(t *testing.T){
+	wordlist :="/usr/share/dict/words"
+	secretword := getSecretWord(wordlist)
 
+if len(secretword)<6{
+	t.Errorf("Expected word length 6 or greater than 6 but got length(%d)",len(secretword))
+}
+
+}
 

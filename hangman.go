@@ -72,6 +72,7 @@ func checkguess(state Hangman, guessedLetter byte) Hangman {
 			correctGuesses:   append(state.correctGuesses, guessedLetter),
 			chancesRemaining: state.chancesRemaining,
 		}
+		return state
 	} else if !isContainByte && !isAlreadyGuessed && state.chancesRemaining > 0 {
 
 		state = Hangman{
@@ -80,9 +81,11 @@ func checkguess(state Hangman, guessedLetter byte) Hangman {
 			correctGuesses:   state.correctGuesses,
 			chancesRemaining: state.chancesRemaining - 1,
 		}
-	}
+		return state
+	} else {
 
-	return state
+		return state
+	}
 }
 
 func main() {

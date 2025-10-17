@@ -56,7 +56,7 @@ func TestSecretWordLength(t *testing.T) {
 	}
 
 }
-func TestCurrectguess(t *testing.T) {
+func TestCorrectguess(t *testing.T) {
 
 	userInput := 'p'
 	currentstate := Hangman{
@@ -84,6 +84,6 @@ func TestCurrectguess(t *testing.T) {
 
 	}
 	if newstate.chancesRemaining != expected.chancesRemaining {
-		t.Errorf("Chances left modified\n")
+		t.Errorf("Chances left mo\n")
 	}
 }

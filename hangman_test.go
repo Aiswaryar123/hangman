@@ -1,41 +1,58 @@
 package main
 
-
 import (
+	"fmt"
+	"os"
 	"strings"
 	"testing"
-	"unicode"
 )
 
-
+func createDictFile(words []string) (string, error) {
+	f, err := os.CreateTemp("/tmp", "hangman-dict")
+	if err != nil {
+		fmt.Println("Couldn't create temp file.")
+	}
+	data := strings.Join(words, "\n")
+	_, err = f.Write([]byte(data))
+	if err != nil {
+		return "", err
+	}
+	return f.Name(), nil
+}
 func TestSecretWordNoCapitals(t *testing.T) {
-	wordList := "/usr/share/dict/words"
+	wordList, err := createDictFile([]string{"Lion", "Elephant", "monkey"})
+	defer os.Remove(wordList)
+	if err != nil {
+
+		t.Errorf("Couldn't create word list. Can't proceed with test : %v", err)
+	}
 	secretWord := getSecretWord(wordList)
-	if secretWord != strings.ToLower(secretWord) {
-		t.Errorf("Should not get words with capital letters. Got %s", secretWord)
-	}
-
-
-}
-func TestSecretWordNoPunctuation(t *testing.T){
-
-	 wordlist := "/usr/share/dict/words"
-	 secretword := getSecretWord(wordlist)
-
-	for _, c := range secretword {
-		if !unicode.IsLetter(c) {
-			t.Errorf("Expected only letters but Got:%s",secretword)
-			break
-		}
+	if secretWord != "monkey" {
+		t.Errorf("Should get 'monkey' but Got %s", secretWord)
 	}
 }
-func TestSecretWordlength(t *testing.T){
-	wordlist :="/usr/share/dict/words"
-	secretword := getSecretWord(wordlist)
+func TestSecretWordNoPunc(t *testing.T) {
+	wordList, err := createDictFile([]string{"Lion's", "Elephant's", "monkey"})
+	defer os.Remove(wordList)
+	if err != nil {
 
-if len(secretword)<6{
-	t.Errorf("Expected word length 6 or greater than 6 but got length(%d)",len(secretword))
+		t.Errorf("Couldn't create word list. Can't proceed with test : %v", err)
+	}
+	secretWord := getSecretWord(wordList)
+	if secretWord != "monkey" {
+		t.Errorf("Should get 'monkey' but Got %s", secretWord)
+	}
 }
+func TestSecretWordLength(t *testing.T) {
+	wordList, err := createDictFile([]string{"lion", "pen", "monkey"})
+	defer os.Remove(wordList)
+	if err != nil {
+
+		t.Errorf("Couldn't create word list. Can't proceed with test : %v", err)
+	}
+	secretWord := getSecretWord(wordList)
+	if secretWord != "monkey" {
+		t.Errorf("Should get 'monkey' but Got %s", secretWord)
+	}
 
 }
-

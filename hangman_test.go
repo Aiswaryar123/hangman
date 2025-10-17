@@ -116,6 +116,36 @@ func TestIncorrectguess(t *testing.T) {
 		t.Errorf("Chances left modified\n")
 	}
 }
+func TestIncorrectguess1(t *testing.T) {
+	userInput := 'a'
+	currentstate := Hangman{
+		secretWord:       "police",
+		guessedLetters:   []byte{'x', 'y', 'z'},
+		chancesRemaining: 4,
+		correctGuesses:   []byte{},
+	}
+	newstate := checkguess(currentstate, byte(userInput))
+	expected := Hangman{
+		secretWord:       "police",
+		guessedLetters:   append(currentstate.guessedLetters, byte(userInput)),
+		chancesRemaining: 3,
+		correctGuesses:   currentstate.correctGuesses,
+	}
+	if newstate.secretWord != expected.secretWord {
+		t.Errorf("secret word was modified")
+	}
+	if string(newstate.guessedLetters) != string(expected.guessedLetters) {
+		t.Errorf("Error processing guessed letters\n")
+	}
+	if string(newstate.correctGuesses) != string(expected.correctGuesses) {
+		t.Errorf("Error processing Correctly guessed letters!\n")
+
+	}
+	if newstate.chancesRemaining != expected.chancesRemaining {
+		t.Errorf("Chances left modified\n")
+	}
+}
+
 func TestAlreadyguess(t *testing.T) {
 
 	userInput := 'a'
@@ -127,7 +157,7 @@ func TestAlreadyguess(t *testing.T) {
 	}
 	newstate := checkguess(currentstate, byte(userInput))
 	expected := Hangman{
-		secretWord:       "police",
+		secretWord:       currentstate.secretWord,
 		guessedLetters:   currentstate.guessedLetters,
 		chancesRemaining: 6,
 		correctGuesses:   currentstate.correctGuesses,

@@ -87,8 +87,3 @@ func checkguess(state Hangman, guessedLetter byte) Hangman {
 		return state
 	}
 }
-
-func main() {
-	fmt.Println(getSecretWord("/usr/share/dict/words"))
-
-}

@@ -177,3 +177,26 @@ func TestAlreadyguess(t *testing.T) {
 		t.Errorf("Chances left modified\n")
 	}
 }
+func TestCheckWon(t *testing.T) {
+	state := Hangman{
+		secretWord:       "police",
+		correctGuesses:   []byte{'p', 'o', 'l', 'i', 'c', 'e'},
+		guessedLetters:   []byte{'p', 'o', 'l', 'i', 'c', 'e'},
+		chancesRemaining: 3,
+	}
+
+	if !CheckWon(state) {
+		t.Errorf("Expected true, but got false")
+	}
+
+	state2 := Hangman{
+		secretWord:       "police",
+		correctGuesses:   []byte{'p', 'o', 'l', 'c'},
+		guessedLetters:   []byte{'p', 'o', 'l', 'c', 'a'},
+		chancesRemaining: 2,
+	}
+
+	if CheckWon(state2) {
+		t.Errorf("Expected false, but got true")
+	}
+}

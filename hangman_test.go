@@ -205,9 +205,9 @@ func TestDisplayWord(t *testing.T) {
 		secretWord:       "police",
 		correctGuesses:   []byte{'p', 'o', 'c'},
 		guessedLetters:   []byte{'p', 'o', 'c', 'x'},
-		chancesRemaining: 5,
+		chancesRemaining: 6,
 	}
-	expected1 := "po-c--"
+	expected1 := "po--c-"
 	result1 := displayWord(state1)
 	if result1 != expected1 {
 		t.Errorf("Expected %s, got %s", expected1, result1)

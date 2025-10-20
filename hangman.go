@@ -95,3 +95,24 @@ func CheckWon(state Hangman) bool {
 	}
 	return true
 }
+func displayWord(state Hangman) string {
+	display := ""
+
+	for _, ch := range state.secretWord {
+
+		found := false
+		for _, guessed := range state.correctGuesses {
+			if guessed == byte(ch) {
+				found = true
+				break
+			}
+		}
+
+		if found {
+			display += string(ch)
+		} else {
+			display += "-"
+		}
+	}
+	return display
+}

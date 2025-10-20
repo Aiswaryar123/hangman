@@ -128,3 +128,24 @@ func getUserInput() byte {
 
 	return input[0]
 }
+func main() {
+	secretword := getSecretWord("/usr/share/dict/words")
+	state := NewGame(secretword)
+
+	fmt.Println("Welcome to Hangman!")
+	for state.chancesRemaining > 0 && !CheckWon(state) {
+		fmt.Println("Word:", displayWord(state))
+		fmt.Println("Guessed letters:", string(state.guessedLetters))
+		fmt.Println("Chances remaining:", state.chancesRemaining)
+
+		guess := getUserInput()
+		state = checkguess(state, guess)
+		fmt.Println()
+	}
+
+	if CheckWon(state) {
+		fmt.Println("Congratulations! You guessed the word:", state.secretWord)
+	} else {
+		fmt.Println("Game Over! The word was:", state.secretWord)
+	}
+}

@@ -87,3 +87,11 @@ func checkguess(state Hangman, guessedLetter byte) Hangman {
 		return state
 	}
 }
+func CheckWon(state Hangman) bool {
+	for _, ch := range state.secretWord {
+		if !strings.ContainsRune(string(state.correctGuesses), ch) {
+			return false
+		}
+	}
+	return true
+}

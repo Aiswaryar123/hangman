@@ -200,7 +200,7 @@ func TestCheckWon(t *testing.T) {
 		t.Errorf("Expected false, but got true")
 	}
 }
-func TestDisplayWord(t *testing.T) {
+func TestDisplay_allcorrect(t *testing.T) {
 	state1 := Hangman{
 		secretWord:       "police",
 		correctGuesses:   []byte{'p', 'o', 'c'},
@@ -211,5 +211,31 @@ func TestDisplayWord(t *testing.T) {
 	result1 := displayWord(state1)
 	if result1 != expected1 {
 		t.Errorf("Expected %s, got %s", expected1, result1)
+	}
+}
+func TestDisplayWord_Somerepeatletters(t *testing.T) {
+	state := Hangman{
+		secretWord:       "letter",
+		correctGuesses:   []byte{'e', 't'},
+		guessedLetters:   []byte{'e', 't', 'x'},
+		chancesRemaining: 5,
+	}
+	expected := "-ette-"
+	result := displayWord(state)
+	if result != expected {
+		t.Errorf("Expected %s, got %s", expected, result)
+	}
+}
+func TestDisplayWord_Nonecorrect(t *testing.T) {
+	state := Hangman{
+		secretWord:       "banana",
+		correctGuesses:   []byte{},
+		guessedLetters:   []byte{'x', 'y', 'z'},
+		chancesRemaining: 3,
+	}
+	expected := "------"
+	result := displayWord(state)
+	if result != expected {
+		t.Errorf("Expected %s, got %s", expected, result)
 	}
 }

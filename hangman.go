@@ -116,3 +116,15 @@ func displayWord(state Hangman) string {
 	}
 	return display
 }
+func getUserInput() byte {
+	var input string
+	fmt.Print("Enter a letter: ")
+	fmt.Scanln(&input)
+	for len(input) != 1 || !unicode.IsLetter(rune(input[0])) {
+		fmt.Println("Please enter only ONE letter!")
+		fmt.Print("Enter a letter: ")
+		fmt.Scanln(&input)
+	}
+
+	return input[0]
+}

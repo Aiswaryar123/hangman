@@ -200,6 +200,7 @@ func TestCheckWon(t *testing.T) {
 		t.Errorf("Expected false, but got true")
 	}
 }
+
 func TestDisplay_allcorrect(t *testing.T) {
 	state1 := Hangman{
 		secretWord:       "police",
@@ -237,5 +238,28 @@ func TestDisplayWord_Nonecorrect(t *testing.T) {
 	result := displayWord(state)
 	if result != expected {
 		t.Errorf("Expected %s, got %s", expected, result)
+	}
+}
+func TestCheckLoss(t *testing.T) {
+	state := Hangman{
+		secretWord:       "police",
+		correctGuesses:   []byte{'p', 'o', 'l'},
+		guessedLetters:   []byte{'p', 'o', 'l', 'x', 'y', 'z'},
+		chancesRemaining: 0,
+	}
+
+	if !CheckLoss(state) {
+		t.Errorf("Expected true (loss), but got false")
+	}
+
+	state2 := Hangman{
+		secretWord:       "police",
+		correctGuesses:   []byte{'p', 'o'},
+		guessedLetters:   []byte{'p', 'o', 'x'},
+		chancesRemaining: 6,
+	}
+
+	if CheckLoss(state2) {
+		t.Errorf("Expected false (not lost yet), but got true")
 	}
 }

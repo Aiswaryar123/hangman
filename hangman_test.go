@@ -182,7 +182,7 @@ func TestCheckWon(t *testing.T) {
 		secretWord:       "police",
 		correctGuesses:   []byte{'p', 'o', 'l', 'i', 'c', 'e'},
 		guessedLetters:   []byte{'p', 'o', 'l', 'i', 'c', 'e'},
-		chancesRemaining: 3,
+		chancesRemaining: 7,
 	}
 
 	if !CheckWon(state) {
@@ -193,7 +193,7 @@ func TestCheckWon(t *testing.T) {
 		secretWord:       "police",
 		correctGuesses:   []byte{'p', 'o', 'l', 'c'},
 		guessedLetters:   []byte{'p', 'o', 'l', 'c', 'a'},
-		chancesRemaining: 2,
+		chancesRemaining: 6,
 	}
 
 	if CheckWon(state2) {
@@ -219,7 +219,7 @@ func TestDisplayWord_Somerepeatletters(t *testing.T) {
 		secretWord:       "letter",
 		correctGuesses:   []byte{'e', 't'},
 		guessedLetters:   []byte{'e', 't', 'x'},
-		chancesRemaining: 5,
+		chancesRemaining: 6,
 	}
 	expected := "-ette-"
 	result := displayWord(state)
@@ -232,7 +232,7 @@ func TestDisplayWord_Nonecorrect(t *testing.T) {
 		secretWord:       "banana",
 		correctGuesses:   []byte{},
 		guessedLetters:   []byte{'x', 'y', 'z'},
-		chancesRemaining: 3,
+		chancesRemaining: 4,
 	}
 	expected := "------"
 	result := displayWord(state)

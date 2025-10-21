@@ -128,6 +128,10 @@ func getUserInput() byte {
 
 	return input[0]
 }
+func CheckLoss(state Hangman) bool {
+	return state.chancesRemaining <= 0
+}
+
 func main() {
 	secretword := getSecretWord("/usr/share/dict/words")
 	state := NewGame(secretword)
